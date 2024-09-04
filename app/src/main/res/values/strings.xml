@@ -15,5 +15,5 @@
     <string name="login_btn_hint">Login</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="dont_have_account">Dont you have an account?</string>
-    <string name="register_btn_hint"><u>Register</u></string>
+    <string name="register_btn_hint">Register</string>
 </resources>

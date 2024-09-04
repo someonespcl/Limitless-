@@ -32,7 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 		binding.backBtn.setOnClickListener(v -> {
-			onBackPressed();
+			startActivity(new Intent(RegisterActivity.this, GetStartedActivity.class));
+            finishAffinity();
 		});
 
 		binding.loginBtn.setOnClickListener(v -> {
