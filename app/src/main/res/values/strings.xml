@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Limitless</string>
+    <string name="tag_line">Conversations Without Boundaries.</string>
+    <string name="sub_tagline">Connect with anyone, anytime, anywhere—no barriers, just seamless conversations that bring you closer, no matter the distance.</string>
+    <string name="get_started_hint">Get Started</string>
+    <string name="continue_with_google_hint">Continue With Google</string>
+    <string name="back_btn_hint"><u>Back</u></string>
+    <string name="login_heading">Whats your email?</string>
+    <string name="register_heading">Welcome!\nSet up your account.</string>
+    <string name="register_subtitle">Register now to unlock all features and connect with others.</string>
+    <string name="login_subtitle">Enter the email address youd like to use login to limitless.</string>
+    <string name="email_hint">emailaddress@gmail.com</string>
+    <string name="password_hint">******</string>
+    <string name="login_btn_hint">Login</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="dont_have_account">Dont you have an account?</string>
+    <string name="register_btn_hint"><u>Register</u></string>
+</resources>
