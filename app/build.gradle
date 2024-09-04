@@ -18,10 +18,36 @@ android {
             useSupportLibrary true
         }
     }
+    
+    signingConfigs {
+        release {
+            storeFile file("limitless.jks")
+            storePassword "lillyboomer"
+            keyAlias "limitless"
+            keyPassword "lillyboomer"
+        }
+        debug {
+            storeFile file("limitless.jks")
+            storePassword "lillyboomer"
+            keyAlias "limitless"
+            keyPassword "lillyboomer"
+        }
+        
+    }
+    
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
 
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
