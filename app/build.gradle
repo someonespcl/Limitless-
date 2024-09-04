@@ -4,7 +4,6 @@ plugins {
 
 android {
     namespace 'com.limitless'
-    buildToolsVersion '34.0.4'
     compileSdk 33
     
     defaultConfig {
