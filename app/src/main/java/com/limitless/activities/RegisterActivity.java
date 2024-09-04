@@ -12,9 +12,14 @@ import android.util.Patterns;
 import android.view.MotionEvent;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.HideReturnsTransformationMethod;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.limitless.R;
 import com.limitless.databinding.ActivityRegisterBinding;
 
@@ -22,12 +27,15 @@ public class RegisterActivity extends AppCompatActivity {
 
 	private ActivityRegisterBinding binding;
 	private Vibrator vibrator;
+    private FirebaseAuth mAuth;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		binding = ActivityRegisterBinding.inflate(getLayoutInflater());
 		setContentView(binding.getRoot());
+        
+        mAuth = FirebaseAuth.getInstance();
 
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -108,7 +116,19 @@ public class RegisterActivity extends AppCompatActivity {
 	}
     
     private void registerUser(String email, String password) {
-        
+        mAuth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    Toast.makeText(RegisterActivity.this, "successful", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 	private void vibrateOnError() {
