@@ -22,5 +22,5 @@
 
 -dontwarn com.daimajia.easing.Glider
 -dontwarn com.daimajia.easing.Skill
--keep class javax.annotation.Nullable
--keep class okio.** { *; }
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
