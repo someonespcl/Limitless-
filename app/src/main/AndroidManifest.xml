@@ -15,7 +15,7 @@
         android:theme="@style/limitless">
         
         <activity 
-            android:name="MainActivity" 
+            android:name=".activities.MainActivity" 
             android:exported="true"/>
         <activity
             android:name=".activities.RegisterActivity"

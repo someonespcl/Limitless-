@@ -2,6 +2,7 @@ package com.limitless.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,9 @@ public class GetStartedActivity extends AppCompatActivity {
         });
         
         binding.continueWithGoogle.setOnClickListener(v -> {
+            binding.loadingAnim.setVisibility(View.VISIBLE);
+            binding.continueWithGoogle.setText(null);
+            binding.continueWithGoogle.setIcon(null);
             signIn();
         });
     }
@@ -74,6 +78,8 @@ public class GetStartedActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(GetStartedActivity.this, user.getEmail().toString(), Toast.LENGTH_LONG).show();
+                            binding.loadingAnim.setAnimation(R.raw.success_1);
+                            binding.loadingAnim.setRepeatCount(0);
                         } else {
                             Toast.makeText(GetStartedActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
                         }
