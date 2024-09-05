@@ -82,6 +82,9 @@ public class GetStartedActivity extends AppCompatActivity {
                             binding.loadingAnim.setRepeatCount(0);
                         } else {
                             Toast.makeText(GetStartedActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                            binding.loadingAnim.setVisibility(View.GONE);
+                            binding.continueWithGoogle.setText(getString(R.string.continue_with_google_hint));
+                            binding.continueWithGoogle.setIcon(getDrawable(R.drawable.google));
                         }
                     }
                 });

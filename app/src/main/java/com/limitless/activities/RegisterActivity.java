@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.MotionEvent;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.HideReturnsTransformationMethod;
+import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -113,6 +114,8 @@ public class RegisterActivity extends AppCompatActivity {
 				YoYo.with(Techniques.Shake).duration(700).playOn(binding.enterPassword);
 				return;
 			}
+            binding.registerBtn.setText(null);
+            binding.loadingAnim.setVisibility(View.VISIBLE);
             registerUser(email, password);
 		});
 	}
@@ -125,7 +128,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     Toast.makeText(RegisterActivity.this, "successful", Toast.LENGTH_LONG).show();
+                    binding.loadingAnim.setAnimation(R.raw.success_1);
+                    binding.loadingAnim.setRepeatCount(0);
                 } else {
+                    binding.registerBtn.setText(getString(R.string.register_btn_hint));
+                    binding.loadingAnim.setVisibility(View.GONE);    
                     Toast.makeText(RegisterActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
                 }

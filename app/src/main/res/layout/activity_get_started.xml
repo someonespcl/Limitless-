@@ -97,7 +97,6 @@
                 app:cornerRadius="20dp"
                 android:fontFamily="@font/poppins_medium"
                 android:textAllCaps="false"
-                android:layout_marginStart="8dp"
                 android:id="@+id/continue_with_google"
                 app:iconGravity="start"
                 android:text="@string/continue_with_google_hint" />
