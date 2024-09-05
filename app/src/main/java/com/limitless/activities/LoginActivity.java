@@ -19,8 +19,11 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.limitless.R;
 import androidx.appcompat.app.AppCompatActivity;
@@ -134,14 +137,25 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    Toast.makeText(LoginActivity.this, "successful", Toast.LENGTH_LONG).show();
                     binding.loadingAnim.setAnimation(R.raw.success_1);
                     binding.loadingAnim.setRepeatCount(0);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else {
+                    String errorMessage;
+                    try {
+                        throw task.getException();
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        errorMessage = "Account does not exist. Please sign up.";
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                        errorMessage = "Invalid email or password. Please try again.";
+                    } catch (FirebaseNetworkException e) {
+                        errorMessage = "Network error. Please check your connection.";
+                    } catch (Exception e) {
+                        errorMessage = "Authentication failed. Please try again.";
+                    }
                     binding.loginBtn.setText(getString(R.string.login_btn_hint));
                     binding.loadingAnim.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }
         });

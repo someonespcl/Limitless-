@@ -22,6 +22,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.limitless.R;
 import com.limitless.databinding.ActivityRegisterBinding;
@@ -127,13 +130,27 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    Toast.makeText(RegisterActivity.this, "successful", Toast.LENGTH_LONG).show();
                     binding.loadingAnim.setAnimation(R.raw.success_1);
                     binding.loadingAnim.setRepeatCount(0);
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                 } else {
+                    String errorMessage;
+                    try {
+                        throw task.getException();
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                        errorMessage = "The email address is malformed. Please check and try again.";
+                    } catch (FirebaseAuthUserCollisionException e) {
+                        errorMessage = "An account already exists with this email.";
+                    } catch (FirebaseNetworkException e) {
+                        errorMessage = "Network error. Please check your connection.";
+                    } catch (FirebaseAuthEmailException e) {
+                        errorMessage = "There was a problem with your email action. Please try again.";
+                    } catch (Exception e) {
+                        errorMessage = "Authentication failed. Please try again.";
+                    }
                     binding.registerBtn.setText(getString(R.string.register_btn_hint));
                     binding.loadingAnim.setVisibility(View.GONE);    
-                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                    Toast.makeText(RegisterActivity.this, errorMessage,
                             Toast.LENGTH_SHORT).show();
                 }
             }

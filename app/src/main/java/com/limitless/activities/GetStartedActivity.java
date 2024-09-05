@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthMultiFactorException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.FirebaseNetworkException;
 import com.limitless.R;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -77,11 +81,26 @@ public class GetStartedActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(GetStartedActivity.this, user.getEmail().toString(), Toast.LENGTH_LONG).show();
                             binding.loadingAnim.setAnimation(R.raw.success_1);
                             binding.loadingAnim.setRepeatCount(0);
+                            startActivity(new Intent(GetStartedActivity.this, MainActivity.class));
+                            finishAffinity();
                         } else {
-                            Toast.makeText(GetStartedActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                            String errorMessage;
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                errorMessage = "Invalid credentials. Please try again.";
+                            } catch (FirebaseAuthUserCollisionException e) {
+                                errorMessage = "An account already exists with the same email.";
+                            } catch (FirebaseNetworkException e) {
+                                errorMessage = "Network error. Please check your connection.";
+                            } catch (FirebaseAuthMultiFactorException e) {
+                                errorMessage = "Multi-factor authentication is required.";
+                            } catch (Exception e) {
+                                errorMessage = "Google sign-in failed. Please try again.";
+                            }
+                            Toast.makeText(GetStartedActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                             binding.loadingAnim.setVisibility(View.GONE);
                             binding.continueWithGoogle.setText(getString(R.string.continue_with_google_hint));
                             binding.continueWithGoogle.setIcon(getDrawable(R.drawable.google));
