@@ -59,4 +59,9 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:forceDarkAllowed">false</item>
     </style>
+    
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

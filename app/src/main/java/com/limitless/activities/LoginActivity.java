@@ -1,5 +1,7 @@
 package com.limitless.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -25,24 +27,29 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.limitless.R;
 import androidx.appcompat.app.AppCompatActivity;
 import com.limitless.databinding.ActivityLoginBinding;
-import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
 	private ActivityLoginBinding binding;
 	private Vibrator vibrator;
-    private FirebaseAuth mAuth;
+	private FirebaseAuth mAuth;
+	private FirebaseDatabase database;
+	private DatabaseReference userRefer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		binding = ActivityLoginBinding.inflate(getLayoutInflater());
 		setContentView(binding.getRoot());
-        
-        mAuth = FirebaseAuth.getInstance();
+
+		mAuth = FirebaseAuth.getInstance();
+		database = FirebaseDatabase.getInstance();
+		userRefer = database.getReference("Users");
 
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -119,8 +126,8 @@ public class LoginActivity extends AppCompatActivity {
 				YoYo.with(Techniques.Shake).duration(700).playOn(binding.enterPassword);
 				return;
 			}
-            binding.loginBtn.setText(null);
-            binding.loadingAnim.setVisibility(View.VISIBLE);
+			binding.loginBtn.setText(null);
+			binding.loadingAnim.setVisibility(View.VISIBLE);
 			letUserLogin(email, password);
 		});
 	}
@@ -131,34 +138,54 @@ public class LoginActivity extends AppCompatActivity {
 	    to store user details to database.
 	*/
 	private void letUserLogin(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    binding.loadingAnim.setAnimation(R.raw.success_1);
-                    binding.loadingAnim.setRepeatCount(0);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                } else {
-                    String errorMessage;
-                    try {
-                        throw task.getException();
-                    } catch (FirebaseAuthInvalidUserException e) {
-                        errorMessage = "Account does not exist. Please sign up.";
-                    } catch (FirebaseAuthInvalidCredentialsException e) {
-                        errorMessage = "Invalid email or password. Please try again.";
-                    } catch (FirebaseNetworkException e) {
-                        errorMessage = "Network error. Please check your connection.";
-                    } catch (Exception e) {
-                        errorMessage = "Authentication failed. Please try again.";
-                    }
-                    binding.loginBtn.setText(getString(R.string.login_btn_hint));
-                    binding.loadingAnim.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+		mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this,
+				new OnCompleteListener<AuthResult>() {
+					@Override
+					public void onComplete(@NonNull Task<AuthResult> task) {
+						if (task.isSuccessful()) {
+							FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+							long loginTime = System.currentTimeMillis();
+							userRefer.child(firebaseUser.getUid()).child("lastLoginTime").setValue(loginTime)
+									.addOnCompleteListener(new OnCompleteListener<Void>() {
+										@Override
+										public void onComplete(@NonNull Task<Void> task) {
+											if (task.isSuccessful()) {
+												binding.loadingAnim.setAnimation(R.raw.success_1);
+												binding.loadingAnim.setRepeatCount(0);
+												binding.loadingAnim.addAnimatorListener(new AnimatorListenerAdapter() {
+													@Override
+													public void onAnimationEnd(Animator animation) {
+														super.onAnimationEnd(animation);
+														startActivity(
+																new Intent(LoginActivity.this, MainActivity.class));
+														finishAffinity();
+													}
+												});
+											} else {
+												Toast.makeText(LoginActivity.this, "Failed to save user data.",Toast.LENGTH_SHORT).show();
+											}
+										}
+									});
+						} else {
+							String errorMessage;
+							try {
+								throw task.getException();
+							} catch (FirebaseAuthInvalidUserException e) {
+								errorMessage = "Account does not exist. Please sign up.";
+							} catch (FirebaseAuthInvalidCredentialsException e) {
+								errorMessage = "Invalid email or password. Please try again.";
+							} catch (FirebaseNetworkException e) {
+								errorMessage = "Network error. Please check your connection.";
+							} catch (Exception e) {
+								errorMessage = "Authentication failed. Please try again.";
+							}
+							binding.loginBtn.setText(getString(R.string.login_btn_hint));
+							binding.loadingAnim.setVisibility(View.GONE);
+							Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+						}
+					}
+				});
 	}
 
 	/*

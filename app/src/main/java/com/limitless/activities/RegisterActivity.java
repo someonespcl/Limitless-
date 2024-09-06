@@ -1,5 +1,7 @@
 package com.limitless.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -20,20 +22,26 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.limitless.R;
 import com.limitless.databinding.ActivityRegisterBinding;
+import com.limitless.models.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
 	private ActivityRegisterBinding binding;
 	private Vibrator vibrator;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference userRef;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 		setContentView(binding.getRoot());
         
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        userRef = database.getReference("Users");
 
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -129,10 +139,33 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    binding.loadingAnim.setAnimation(R.raw.success_1);
-                    binding.loadingAnim.setRepeatCount(0);
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    
+                    long timeStamp = System.currentTimeMillis();
+                    String userType = "Email/Password";
+                    
+                    User user = new User(email, userType, null, timeStamp);
+                    userRef.child(firebaseUser.getUid()).setValue(user)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    binding.loadingAnim.setAnimation(R.raw.success_1);
+                                    binding.loadingAnim.setRepeatCount(0);
+                                    binding.loadingAnim.addAnimatorListener(new AnimatorListenerAdapter(){
+                                        @Override
+                                        public void onAnimationEnd(Animator animation) {
+                                            super.onAnimationEnd(animation);
+                                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                            finishAffinity();
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, "Failed to save user data.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        
                 } else {
                     String errorMessage;
                     try {
