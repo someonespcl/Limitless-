@@ -18,6 +18,9 @@
             android:name=".activities.MainActivity" 
             android:exported="true"/>
         <activity
+            android:name=".activities.ProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.RegisterActivity"
             android:exported="true" />
         <activity

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:animateLayoutChanges="true"
+     android:padding="16dp"
+     android:clipToPadding="false"
+     tools:context=".activities.ProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:id="@+id/view_container">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             app:layout_constraintTop_toTopOf="parent"
+             android:textAppearance="?attr/textAppearanceTitleLarge"
+             android:includeFontPadding="false"
+             app:layout_constraintStart_toStartOf="parent"
+             android:fontFamily="@font/poppins_semibold"
+             android:textColor="#ffffff"
+             android:text="Profile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:padding="16dp"
+         app:layout_constraintStart_toStartOf="parent"
+         android:orientation="vertical"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/view_container">
+
+        <com.google.android.material.imageview.ShapeableImageView
+             android:layout_height="110dp"
+             android:layout_width="110dp"
+             android:scaleType="centerCrop"
+             android:adjustViewBounds="true"
+             app:shapeAppearanceOverlay="@style/roundedImageView"
+             android:layout_gravity="center"
+             android:id="@+id/user_image_view" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:textAppearance="?attr/textAppearanceTitleLarge"
+             android:includeFontPadding="false"
+             android:fontFamily="@font/poppins_semibold"
+             android:textColor="#ffffff"
+             android:layout_marginTop="12dp"
+             android:layout_gravity="center_horizontal"
+             android:id="@+id/user_name_tv" />
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:orientation="horizontal"
+             android:layout_gravity="center_horizontal">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textAppearance="?attr/textAppearanceTitleMedium"
+                 android:includeFontPadding="false"
+                 android:fontFamily="@font/poppins_medium"
+                 android:text="Student"
+                 android:id="@+id/user_profession_tv" />
+
+            <View
+                 android:layout_height="12dp"
+                 android:layout_width="2dp"
+                 android:background="#ffffff"
+                 android:layout_margin="4dp"
+                 android:layout_gravity="center_vertical" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textAppearance="?attr/textAppearanceTitleMedium"
+                 android:includeFontPadding="false"
+                 android:fontFamily="@font/poppins_medium"
+                 android:text="Single"
+                 android:id="@+id/user_status_tv" />
+
+        </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             app:lottie_rawRes="@raw/telegram"
+             android:padding="6dp"
+             android:layout_marginTop="6dp"
+             app:lottie_autoPlay="true"
+             app:lottie_loop="false"
+             android:layout_gravity="center_horizontal"
+             android:id="@+id/telegram" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
