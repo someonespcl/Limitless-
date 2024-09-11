@@ -16,4 +16,5 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="dont_have_account">Dont you have an account?</string>
     <string name="register_btn_hint">Register</string>
+    <string name="setup_profile_hint"><u>Setup Profile</u></string>
 </resources>
