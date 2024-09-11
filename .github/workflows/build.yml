@@ -40,7 +40,7 @@ jobs:
       run: ./gradlew assembleRelease
 
     - name: Run Lint Checks
-      run: ./gradlew lint
+      run: ./gradlew lint --continue
 
     - name: Upload Lint Report
       uses: actions/upload-artifact@v4
