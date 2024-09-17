@@ -38,7 +38,7 @@ public class GetStartedActivity extends AppCompatActivity {
 	private GoogleSignInClient mGoogleSignInClient;
 	private FirebaseDatabase database;
 	private DatabaseReference userRefer;
-
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

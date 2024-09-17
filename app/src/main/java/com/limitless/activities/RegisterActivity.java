@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.daimajia.androidanimations.library.Techniques;
@@ -34,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.limitless.R;
 import com.limitless.databinding.ActivityRegisterBinding;
 import com.limitless.models.User;
+import com.limitless.utils.CustomToast;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -161,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     });
                                 } else {
-                                    Toast.makeText(RegisterActivity.this, "Failed to save user data.", Toast.LENGTH_SHORT).show();
+                                    CustomToast.showToast(RegisterActivity.this, "Failed to save user data.");
                                 }
                             }
                         });
@@ -183,8 +183,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     binding.registerBtn.setText(getString(R.string.register_btn_hint));
                     binding.loadingAnim.setVisibility(View.GONE);    
-                    Toast.makeText(RegisterActivity.this, errorMessage,
-                            Toast.LENGTH_SHORT).show();
+                    CustomToast.showToast(RegisterActivity.this, errorMessage);
                 }
             }
         });

@@ -4,6 +4,7 @@
     
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     
     <application 
         android:allowBackup="true" 
@@ -12,7 +13,8 @@
         android:label="@string/app_name" 
         android:supportsRtl="true"
         android:largeHeap="true" 
-        android:theme="@style/limitless">
+        android:theme="@style/limitless"
+        android:requestLegacyExternalStorage="true">
         
         <activity 
             android:name=".activities.MainActivity" 
@@ -23,12 +25,6 @@
         <activity
             android:name=".activities.SetUpProfileActivity"
             android:exported="true" >
-            <intent-filter>
-                <action 
-                    android:name="android.intent.action.MAIN" />
-                <category 
-                    android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.RegisterActivity"
@@ -39,6 +35,12 @@
         <activity
             android:name=".activities.GetStartedActivity"
             android:exported="true">
+            <intent-filter>
+                <action 
+                    android:name="android.intent.action.MAIN" />
+                <category 
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>            
         </activity>
     </application>
 </manifest>

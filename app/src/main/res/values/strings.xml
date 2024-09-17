@@ -12,9 +12,12 @@
     <string name="login_subtitle">Enter the email address youd like to use login to limitless.</string>
     <string name="email_hint">emailaddress@gmail.com</string>
     <string name="password_hint">******</string>
+    <string name="forgotPasswordTitle">Forgot Password?</string>
+    <string name="save_credentials">Save credentials</string>
     <string name="login_btn_hint">Login</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="dont_have_account">Dont you have an account?</string>
     <string name="register_btn_hint">Register</string>
     <string name="setup_profile_hint"><u>Setup Profile</u></string>
+    <string name="setup_profile_discription">Add a profile picture to make your account uniquely yours. This will help others recognize you easily and enhance your presence in the app. Choose an image that represents you best!</string>
 </resources>
