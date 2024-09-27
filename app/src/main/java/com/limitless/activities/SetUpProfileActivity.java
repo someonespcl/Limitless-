@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.content.ContentValues;
 import android.provider.Settings;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -21,6 +23,7 @@ public class SetUpProfileActivity extends AppCompatActivity {
 
 	private ActivitySetUpProfileBinding binding;
 	private static final int STORAGE_PERMISSION_CODE = 143;
+    private static final int CAMERA_PERMISSION_CODE = 144;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

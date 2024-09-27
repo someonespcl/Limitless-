@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:clipToPadding="false">
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/close"
+        android:layout_gravity="left|top"
+        android:id="@+id/close_button" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textAppearance="?attr/textAppearanceTitleLarge"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="#ffffff"
+        android:layout_marginTop="16dp"
+        android:id="@+id/login_heading"
+        android:text="@string/login_heading" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="#ffffff"
+        android:id="@+id/login_subtitle"
+        android:text="@string/login_subtitle" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#ffffff"
+        android:layout_marginTop="24dp"
+        android:maxHeight="50dp"
+        android:background="@drawable/edit_text_bg"
+        android:hint="@string/email_hint"
+        android:minHeight="50dp"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="12dp"
+        android:inputType="textEmailAddress"
+        android:id="@+id/enter_email" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:drawablePadding="12dp"
+        android:drawableEnd="@drawable/eye_off"
+        android:textColor="#ffffff"
+        android:layout_marginTop="16dp"
+        android:maxHeight="50dp"
+        android:background="@drawable/edit_text_bg"
+        android:hint="@string/password_hint"
+        android:minHeight="50dp"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="12dp"
+        android:inputType="textPassword"
+        android:id="@+id/enter_password" />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:id="@+id/checkbox_container">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:text="Save credentials"
+            android:id="@+id/save_credentials_checkbox"
+            android:layout_gravity="start|center_vertical" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#ffffff"
+            android:layout_gravity="end|center_vertical"
+            android:text="@string/forgotPasswordTitle"
+            android:id="@+id/forget_password_btn" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:fontFamily="@font/poppins_medium"
+            app:cornerRadius="16dp"
+            app:elevation="10dp"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:id="@+id/login_btn"
+            android:text="@string/login_btn_hint" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_medium"
+            app:cornerRadius="16dp"
+            android:textAllCaps="false"
+            android:layout_marginLeft="6dp"
+            android:textColor="@android:color/white"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_weight="1"
+            android:id="@+id/create_account_button"
+            android:text="@string/create_ac" />
+
+    </LinearLayout>
+
+</LinearLayout>

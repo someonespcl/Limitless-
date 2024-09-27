@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import com.limitless.R;
 import com.limitless.databinding.ActivityMainBinding;
 import com.limitless.fragments.HomeFragment;
+import com.limitless.fragments.UsersFragment;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        loadFragment(new HomeFragment());
+        loadFragment(new UsersFragment());
     }
     
     private void loadFragment(Fragment fragment) {

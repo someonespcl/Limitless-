@@ -1,118 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:animateLayoutChanges="true"
-     android:padding="16dp"
-     android:clipToPadding="false"
-     tools:context=".activities.GetStartedActivity">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:animateLayoutChanges="true"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    tools:context=".activities.GetStartedActivity">
 
     <com.airbnb.lottie.LottieAnimationView
-         android:layout_height="0dp"
-         android:layout_width="0dp"
-         app:layout_constraintHeight_percent="0.5"
-         app:lottie_rawRes="@raw/couple"
-         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintWidth_percent="0.8"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintBottom_toTopOf="@id/app_name"
-         android:id="@+id/main_anim"
-         app:lottie_autoPlay="true"
-         app:lottie_loop="true" />
-
-    <TextView
-         android:layout_height="wrap_content"
-         android:layout_width="0dp"
-         android:textAppearance="?attr/textAppearanceDisplayMedium"
-         android:includeFontPadding="false"
-         app:layout_constraintStart_toStartOf="parent"
-         android:fontFamily="@font/poppins_semibold"
-         android:textColor="#ffffff"
-         app:layout_constraintEnd_toEndOf="parent"
-         android:layout_marginTop="16dp"
-         app:layout_constraintTop_toBottomOf="@id/main_anim"
-         android:id="@+id/app_name"
-         android:text="@string/app_name" />
-
-    <TextView
-         android:layout_height="wrap_content"
-         android:layout_width="0dp"
-         android:includeFontPadding="false"
-         app:layout_constraintStart_toStartOf="@id/app_name"
-         android:fontFamily="@font/poppins_medium"
-         android:textColor="#ffffff"
-         app:layout_constraintEnd_toEndOf="@id/app_name"
-         app:layout_constraintTop_toBottomOf="@id/app_name"
-         android:id="@+id/tag_line"
-         android:text="@string/tag_line" />
-
-    <TextView
-         android:layout_height="wrap_content"
-         android:layout_width="0dp"
-         android:textAppearance="?attr/textAppearanceHeadlineSmall"
-         android:includeFontPadding="false"
-         app:layout_constraintStart_toStartOf="parent"
-         android:fontFamily="@font/poppins_regular"
-         android:textColor="#ffffff"
-         app:layout_constraintEnd_toEndOf="parent"
-         android:layout_marginTop="16dp"
-         app:layout_constraintTop_toBottomOf="@id/tag_line"
-         android:id="@+id/sub_tag_line"
-         android:text="@string/sub_tagline" />
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        app:lottie_rawRes="@raw/couple"
+        android:id="@+id/main_anim"
+        android:layout_weight="1"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
 
     <LinearLayout
-         android:layout_height="wrap_content"
-         android:layout_width="match_parent"
-         app:layout_constraintStart_toStartOf="parent"
-         android:orientation="horizontal"
-         app:layout_constraintEnd_toEndOf="parent"
-         android:layout_marginTop="16dp"
-         app:layout_constraintTop_toBottomOf="@id/sub_tag_line">
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-        <com.google.android.material.button.MaterialButton
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:minHeight="50dp"
-             app:cornerRadius="20dp"
-             android:fontFamily="@font/poppins_medium"
-             android:textAllCaps="false"
-             style="@style/Widget.Material3.Button.TonalButton"
-             android:id="@+id/get_started_btn"
-             android:text="@string/get_started_hint" />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textAppearance="?attr/textAppearanceDisplayMedium"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="#ffffff"
+            android:layout_marginTop="16dp"
+            android:id="@+id/app_name"
+            android:text="@string/app_name" />
 
-        <FrameLayout
-             android:layout_height="wrap_content"
-             android:layout_width="wrap_content"
-             android:layout_marginStart="8dp">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="#ffffff"
+            android:id="@+id/tag_line"
+            android:text="@string/tag_line" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="#ffffff"
+            android:layout_marginTop="16dp"
+            android:id="@+id/sub_tag_line"
+            android:text="@string/sub_tagline" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
 
             <com.google.android.material.button.MaterialButton
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 app:icon="@drawable/google"
-                 android:minHeight="50dp"
-                 app:cornerRadius="20dp"
-                 android:fontFamily="@font/poppins_medium"
-                 android:textAllCaps="false"
-                 android:id="@+id/continue_with_google"
-                 app:iconGravity="start"
-                 android:text="@string/continue_with_google_hint" />
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minHeight="50dp"
+                app:cornerRadius="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textAllCaps="false"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:id="@+id/get_started_btn"
+                android:text="@string/get_started_hint" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:visibility="gone"
-                 app:lottie_rawRes="@raw/loading"
-                 android:layout_gravity="center"
-                 app:lottie_autoPlay="true"
-                 app:lottie_loop="true"
-                 android:id="@+id/loading_anim" />
+            <FrameLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="8dp">
 
-        </FrameLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:icon="@drawable/google"
+                    android:minHeight="50dp"
+                    app:cornerRadius="20dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textAllCaps="false"
+                    android:id="@+id/continue_with_google"
+                    app:iconGravity="start"
+                    android:text="@string/continue_with_google_hint" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    app:lottie_rawRes="@raw/loading"
+                    android:layout_gravity="center"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    android:id="@+id/loading_anim" />
+
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
